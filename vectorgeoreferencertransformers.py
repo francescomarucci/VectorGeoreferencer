@@ -7,11 +7,11 @@ class Transformer():
     """
     Represents an abstract transfromation type
     """
-    def __init__(self, pairsLayer ):
+    def __init__(self, pairsLayer, restrictToSelection):
         
         self.pointsA = []
         self.pointsB = []
-        features = pairsLayer.getFeatures()
+        features = pairsLayer.getFeatures() if not restrictToSelection else pairsLayer.selectedFeatures()
 
         for feature in features:
             geom = feature.geometry().asPolyline()
@@ -24,8 +24,8 @@ class Transformer():
 
 
 class AffineTransformer(Transformer):
-    def __init__(self, pairsLayer ):
-        Transformer.__init__(self, pairsLayer )      
+    def __init__(self, pairsLayer, restrictToSelection):
+        Transformer.__init__(self, pairsLayer, restrictToSelection)      
 
         # Make sure data is valid
         assert len(self.pointsA)>=3
@@ -101,8 +101,8 @@ class AffineTransformer(Transformer):
       
       
 class LinearTransformer(Transformer):
-    def __init__(self, pairsLayer ):
-        Transformer.__init__(self, pairsLayer )
+    def __init__(self, pairsLayer, restrictToSelection ):
+        Transformer.__init__(self, pairsLayer, restrictToSelection )
 
         # Make sure data is valid
         assert len(self.pointsA)==2
@@ -141,8 +141,8 @@ class LinearTransformer(Transformer):
         return p
 
 class TranslationTransformer(Transformer):
-    def __init__(self, pairsLayer ):
-        Transformer.__init__(self, pairsLayer )
+    def __init__(self, pairsLayer, restrictToSelection ):
+        Transformer.__init__(self, pairsLayer, restrictToSelection )
 
         # Make sure data is valid
         assert len(self.pointsA)==1 

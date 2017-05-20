@@ -99,7 +99,7 @@ class VectorGeoreferencer:
         if pairsLayer is None:
             return 0
 
-        featuresCount = len(pairsLayer.allFeatureIds())
+        featuresCount = len(pairsLayer.selectedFeaturesIds()) if self.dlg.restrictBox_pairsLayer.isChecked() else len(pairsLayer.allFeatureIds())
         
         if featuresCount == 1:
             return 1
@@ -118,18 +118,22 @@ class VectorGeoreferencer:
         pairsLayer = self.dlg.pairsLayer()
 
         transType = self.determineTransformationType()
-
+        
+        restrictToSelection = self.dlg.restrictBox_pairsLayer.isChecked()
+        
         if transType==3:
             # NEW METHOD: AFFINE TRANSFORMATION
             self.dlg.displayMsg( "Loading affine transformation vector..." )
-            self.transformer = AffineTransformer( pairsLayer )
+            self.transformer = AffineTransformer(pairsLayer, restrictToSelection)
             
         elif transType==2:
             self.dlg.displayMsg( "Loading linear transformation vectors..."  )
-            self.transformer = LinearTransformer( pairsLayer )
+            self.transformer = LinearTransformer(pairsLayer, restrictToSelection)
+            
         elif transType==1:
             self.dlg.displayMsg( "Loading translation vector..."  )
-            self.transformer = TranslationTransformer( pairsLayer )
+            self.transformer = TranslationTransformer(pairsLayer, restrictToSelection)
+            
         else:
             self.dlg.displayMsg( "INVALID TRANSFORMATION TYPE - YOU SHOULDN'T HAVE BEEN ABLE TO HIT RUN" )
             return
