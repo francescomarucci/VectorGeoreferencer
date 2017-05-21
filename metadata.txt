@@ -14,7 +14,7 @@ qgisMinimumVersion=2.2
 description=Georeferences a vector layer based on an affine tranformation (lines pairs more than 3 control points like from ---> to coordinates). This feature is also known as "Affine transformation".
 category=Vector
 version=1.0.0
-author=Francesco Marucci
+author=Olivier Dalang & Francesco Marucci
 email=francesco.marucci@gmail.com
 
 # end of mandatory metadata
@@ -30,9 +30,9 @@ changelog=- 2017-05-14 - Version 1.0.0 : intial release
 # tags are comma separated with spaces allowed
 tags=vector,georeference,transform,affine,translate,scale,rotation
 
-homepage=http://www.alveo.coop
-tracker=
-repository=
+homepage=https://github.com/francescomarucci/VectorGeoreferencer
+tracker=https://github.com/francescomarucci/VectorGeoreferencer/issues
+repository=git@github.com:francescomarucci/VectorGeoreferencer.git
 icon=resources/Georeference.svg
 # experimental flag
 experimental=True
